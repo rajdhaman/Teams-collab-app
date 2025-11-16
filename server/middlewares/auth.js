@@ -25,7 +25,8 @@ const authenticate = async (req, res, next) => {
     req.user = user;
     req.userId = user._id;
     req.userRole = user.role;
-    req.teamId = user.teamId._id;
+    // Only set teamId if user is assigned to a team
+    req.teamId = user.teamId ? user.teamId._id : null;
     next();
   } catch (error) {
     console.error("Auth error:", error);
