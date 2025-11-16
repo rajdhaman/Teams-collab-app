@@ -20,6 +20,9 @@ const io = socketIO(server, {
 // Connect to MongoDB
 
 connectDB();
+// Trust proxy - important for accurate client IP when behind reverse proxy (e.g., Render, Heroku, etc.)
+app.set("trust proxy", 1);
+
 // Middleware
 app.use(helmet());
 app.use(
@@ -30,10 +33,21 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// Rate limiting
+
+// Rate limiting - configured to work properly with proxy
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 1000,
+  // Use the X-Forwarded-For header to identify clients
+  keyGenerator: (req, res) => {
+    // Get the client IP from the request
+    // trust proxy setting above ensures this works correctly
+    return req.ip;
+  },
+  skip: (req, res) => {
+    // Skip rate limiting for health checks
+    return req.path === "/health";
+  },
 });
 app.use("/api/", limiter);
 // Routes
