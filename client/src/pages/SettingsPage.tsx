@@ -135,7 +135,7 @@ export default function SettingsPage() {
   };
 
   const handleToggleNotification = (
-    key: keyof NonNullable<UserSettings["notifications"]>
+    key: keyof NonNullable<UserSettings["notifications"]>,
   ) => {
     setUserSettings((prev) => ({
       ...prev,
@@ -327,7 +327,7 @@ export default function SettingsPage() {
                       onClick={() => {
                         if (
                           confirm(
-                            "Are you sure you want to delete your account? This action cannot be undone."
+                            "Are you sure you want to delete your account? This action cannot be undone.",
                           )
                         ) {
                           // TODO: implement account deletion

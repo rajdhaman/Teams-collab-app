@@ -86,7 +86,7 @@ export default function AssistantDialog() {
       append(`Assistant: ${suggestions.join("\n")}`);
     } else {
       append(
-        `Assistant: I can help with:\n• "create task [title]" - Add a new task\n• "complete task [title]" - Mark as done\n• "delete task [title]" - Remove a task\n• "list tasks" - Show all tasks\n• "search [keywords]" - Find a task`
+        `Assistant: I can help with:\n• "create task [title]" - Add a new task\n• "complete task [title]" - Mark as done\n• "delete task [title]" - Remove a task\n• "list tasks" - Show all tasks\n• "search [keywords]" - Find a task`,
       );
     }
   };
@@ -111,7 +111,7 @@ export default function AssistantDialog() {
         append(
           `✅ Assistant: Created task "${res.data.title}"${
             parsed.priority ? ` [${parsed.priority}]` : ""
-          }${parsed.dueDate ? ` due ${parsed.dueDate}` : ""}`
+          }${parsed.dueDate ? ` due ${parsed.dueDate}` : ""}`,
         );
         if (setTasks) setTasks([...(tasks || []), res.data]);
       } else {
@@ -136,7 +136,7 @@ export default function AssistantDialog() {
         )
           .slice(0, 3)
           .map((t) => `"${t.title}"`)
-          .join(", ")}?`
+          .join(", ")}?`,
       );
       return;
     }
@@ -147,7 +147,7 @@ export default function AssistantDialog() {
         append(`✅ Assistant: Marked "${found.title}" as completed`);
         if (setTasks)
           setTasks(
-            (tasks || []).map((t: any) => (t._id === found._id ? res.data : t))
+            (tasks || []).map((t: any) => (t._id === found._id ? res.data : t)),
           );
       } else {
         append("❌ Assistant: Failed to update task");
@@ -171,7 +171,7 @@ export default function AssistantDialog() {
         )
           .slice(0, 3)
           .map((t) => `"${t.title}"`)
-          .join(", ")}`
+          .join(", ")}`,
       );
       return;
     }
@@ -204,7 +204,7 @@ export default function AssistantDialog() {
         )
           .slice(0, 3)
           .map((t) => `"${t.title}"`)
-          .join(", ")}?`
+          .join(", ")}?`,
       );
       return;
     }
@@ -226,7 +226,7 @@ export default function AssistantDialog() {
         append(`✅ Assistant: Updated "${found.title}"`);
         if (setTasks)
           setTasks(
-            (tasks || []).map((t: any) => (t._id === found._id ? res.data : t))
+            (tasks || []).map((t: any) => (t._id === found._id ? res.data : t)),
           );
       } else {
         append("❌ Assistant: Failed to update task");
@@ -245,14 +245,14 @@ export default function AssistantDialog() {
     const found = findBestMatchingTask(parsed.taskTitle, tasks || []);
     if (found) {
       append(
-        `✅ Assistant: Found "${found.title}" - Status: ${found.status} | Priority: ${found.priority}`
+        `✅ Assistant: Found "${found.title}" - Status: ${found.status} | Priority: ${found.priority}`,
       );
     } else {
       const allTitles = (tasks || []).map((t) => `"${t.title}"`).join(", ");
       append(
         `Assistant: No matching task found. Available: ${
           allTitles || "No tasks yet"
-        }`
+        }`,
       );
     }
   };

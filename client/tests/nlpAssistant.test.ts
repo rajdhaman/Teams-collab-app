@@ -62,7 +62,7 @@ describe("NLP Assistant", () => {
 
       it("should parse create with description using pipe", () => {
         const result = parseCommand(
-          "create task Write report | description: monthly status"
+          "create task Write report | description: monthly status",
         );
         expect(result.action).toBe("create");
         expect(result.taskTitle).toBe("Write report");
@@ -85,7 +85,7 @@ describe("NLP Assistant", () => {
         expect(result.dueDate).toBe("tomorrow");
 
         const nextWeek = parseCommand(
-          "create task Plan sprint | due: next week"
+          "create task Plan sprint | due: next week",
         );
         expect(nextWeek.dueDate).toBe("next week");
       });

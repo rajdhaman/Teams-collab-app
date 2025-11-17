@@ -45,7 +45,7 @@ export interface UpdateTaskRequest {
 
 export const taskService = {
   async getAll(
-    projectId?: string
+    projectId?: string,
   ): Promise<{ success: boolean; data: Task[] }> {
     const response = await api.get("/tasks", {
       params: { projectId },
@@ -66,7 +66,7 @@ export const taskService = {
   },
 
   async create(
-    data: CreateTaskRequest
+    data: CreateTaskRequest,
   ): Promise<{ success: boolean; data: Task }> {
     const response = await api.post("/tasks", data);
     return {
@@ -77,7 +77,7 @@ export const taskService = {
 
   async update(
     id: string,
-    data: UpdateTaskRequest
+    data: UpdateTaskRequest,
   ): Promise<{ success: boolean; data: Task }> {
     const response = await api.put(`/tasks/${id}`, data);
     return {

@@ -22,7 +22,7 @@ export const settingsService = {
   },
 
   async updateUserSettings(
-    data: Partial<UserSettings>
+    data: Partial<UserSettings>,
   ): Promise<{ success: boolean; data: UserSettings }> {
     const response = await api.put("/settings/user", data);
     return response.data;
@@ -34,7 +34,7 @@ export const settingsService = {
   },
 
   async updateTeamSettings(
-    data: Partial<TeamSettings>
+    data: Partial<TeamSettings>,
   ): Promise<{ success: boolean; data: TeamSettings }> {
     const response = await api.put("/settings/team", data);
     return response.data;

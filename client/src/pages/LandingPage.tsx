@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { Menu, X, Zap, Users, CheckCircle, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
 import { Footer } from "@/components/layout/Footer";
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const { user } = useAuth();
 
   // Redirect to dashboard if already logged in
   // if (user) {
@@ -281,8 +279,7 @@ export default function LandingPage() {
           </button>
         </div>
       </section>
-     <Footer />
+      <Footer />
     </div>
   );
 }
-

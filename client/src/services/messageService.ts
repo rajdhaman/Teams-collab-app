@@ -26,7 +26,7 @@ export interface SendMessageRequest {
 export const messageService = {
   async getMessages(
     limit: number = 50,
-    skip: number = 0
+    skip: number = 0,
   ): Promise<{
     success: boolean;
     data: Message[];

@@ -27,7 +27,7 @@ export function TaskCard({ task, onTaskUpdated }: TaskCardProps) {
   ];
 
   const handleStatusChange = async (
-    newStatus: "TODO" | "IN_PROGRESS" | "DONE"
+    newStatus: "TODO" | "IN_PROGRESS" | "DONE",
   ) => {
     if (newStatus === task.status) {
       setShowStatusMenu(false);
@@ -109,7 +109,7 @@ export function TaskCard({ task, onTaskUpdated }: TaskCardProps) {
               onMouseDown={(e) => e.stopPropagation()}
               onTouchStart={(e) => e.stopPropagation()}
               className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium border ${getStatusColor(
-                task.status
+                task.status,
               )} hover:opacity-80 transition-opacity`}
               disabled={isUpdatingStatus}
             >

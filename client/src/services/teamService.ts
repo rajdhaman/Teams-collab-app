@@ -36,7 +36,7 @@ const teamService = {
 
   updateMemberRole: async (
     memberId: string,
-    role: "ADMIN" | "MANAGER" | "MEMBER"
+    role: "ADMIN" | "MANAGER" | "MEMBER",
   ) => {
     try {
       const response = await axios.put(
@@ -46,7 +46,7 @@ const teamService = {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("idToken")}`,
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
@@ -63,7 +63,7 @@ const teamService = {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("idToken")}`,
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {

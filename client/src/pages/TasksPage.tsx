@@ -93,7 +93,7 @@ export default function TasksPage() {
 
   const handleStatusChange = async (
     taskId: string,
-    newStatus: "TODO" | "IN_PROGRESS" | "DONE"
+    newStatus: "TODO" | "IN_PROGRESS" | "DONE",
   ) => {
     setUpdatingTaskId(taskId);
     try {
@@ -101,8 +101,8 @@ export default function TasksPage() {
       // Update local state
       setTasks(
         tasks.map((task) =>
-          task._id === taskId ? { ...task, status: newStatus } : task
-        )
+          task._id === taskId ? { ...task, status: newStatus } : task,
+        ),
       );
       setStatusMenuOpen(null);
     } catch (error) {
@@ -185,12 +185,12 @@ export default function TasksPage() {
                                   setStatusMenuOpen(
                                     statusMenuOpen === task._id
                                       ? null
-                                      : task._id
+                                      : task._id,
                                   );
                                 }}
                                 disabled={updatingTaskId === task._id}
                                 className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold border-0 shadow-sm hover:shadow-md transition-all ${getStatusColor(
-                                  task.status
+                                  task.status,
                                 )} hover:opacity-80 transition-opacity disabled:opacity-50`}
                               >
                                 {task.status === "IN_PROGRESS"
@@ -216,7 +216,7 @@ export default function TasksPage() {
                                         if (option.value !== task.status) {
                                           handleStatusChange(
                                             task._id,
-                                            option.value
+                                            option.value,
                                           );
                                         }
                                       }}

@@ -38,7 +38,7 @@ export default function LoginPage() {
       const firebaseUser = await signInWithEmailAndPassword(
         auth,
         formData.email,
-        formData.password
+        formData.password,
       );
       const token = await firebaseUser.user.getIdToken();
 

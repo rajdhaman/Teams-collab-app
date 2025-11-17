@@ -38,7 +38,7 @@ export const projectService = {
   },
 
   async create(
-    data: CreateProjectRequest
+    data: CreateProjectRequest,
   ): Promise<{ success: boolean; data: Project }> {
     const response = await api.post("/projects", data);
     return response.data;
@@ -46,7 +46,7 @@ export const projectService = {
 
   async update(
     id: string,
-    data: UpdateProjectRequest
+    data: UpdateProjectRequest,
   ): Promise<{ success: boolean; data: Project }> {
     const response = await api.put(`/projects/${id}`, data);
     return response.data;

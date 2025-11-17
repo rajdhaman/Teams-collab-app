@@ -104,8 +104,6 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-
-      
       </Routes>
     </Router>
   );

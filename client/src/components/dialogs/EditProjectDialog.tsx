@@ -44,7 +44,7 @@ export function EditProjectDialog({
   }, [project, open]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -76,7 +76,7 @@ export function EditProjectDialog({
     if (!project) return;
     if (
       !confirm(
-        "Are you sure you want to delete this project? This cannot be undone."
+        "Are you sure you want to delete this project? This cannot be undone.",
       )
     )
       return;

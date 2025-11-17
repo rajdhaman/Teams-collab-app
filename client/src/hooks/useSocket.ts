@@ -77,7 +77,7 @@ export const useSocket = () => {
         }
       };
     },
-    []
+    [],
   );
 
   const off = useCallback(
@@ -90,7 +90,7 @@ export const useSocket = () => {
         }
       }
     },
-    []
+    [],
   );
 
   return {

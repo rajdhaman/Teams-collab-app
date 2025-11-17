@@ -125,12 +125,12 @@ export default function KanbanPage() {
         const newTasks = { ...tasks };
         newTasks[source.droppableId as keyof typeof tasks].splice(
           source.index,
-          1
+          1,
         );
         newTasks[destination.droppableId as keyof typeof tasks].splice(
           destination.index,
           0,
-          task
+          task,
         );
         setTasks(newTasks);
 
@@ -145,7 +145,7 @@ export default function KanbanPage() {
         loadTasks();
       }
     },
-    [tasks]
+    [tasks],
   );
 
   return (
@@ -245,7 +245,7 @@ export default function KanbanPage() {
                                       </div>
                                     )}
                                   </Draggable>
-                                )
+                                ),
                               )}
                               {provided.placeholder}
                               {tasks[status as keyof typeof tasks].length ===

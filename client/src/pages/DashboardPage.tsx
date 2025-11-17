@@ -55,7 +55,7 @@ export default function DashboardPage() {
   const handleDeleteProject = async (projectId: string) => {
     if (
       !confirm(
-        "Are you sure you want to delete this project? This cannot be undone."
+        "Are you sure you want to delete this project? This cannot be undone.",
       )
     )
       return;

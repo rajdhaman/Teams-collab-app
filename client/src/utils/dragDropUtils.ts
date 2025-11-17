@@ -11,7 +11,7 @@ import { Task } from "@services/taskService";
 export const reorderTasks = (
   list: Task[],
   startIndex: number,
-  endIndex: number
+  endIndex: number,
 ): Task[] => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
@@ -26,7 +26,7 @@ export const moveTask = (
   source: Task[],
   destination: Task[],
   droppableSource: { index: number },
-  droppableDestination: { index: number }
+  droppableDestination: { index: number },
 ): { source: Task[]; destination: Task[] } => {
   const sourceClone = Array.from(source);
   const destClone = Array.from(destination);
@@ -45,7 +45,7 @@ export const moveTask = (
  */
 export const canDropTask = (
   taskStatus: "TODO" | "IN_PROGRESS" | "DONE",
-  destinationStatus: string
+  destinationStatus: string,
 ): boolean => {
   const validTransitions: Record<"TODO" | "IN_PROGRESS" | "DONE", string[]> = {
     TODO: ["TODO", "IN_PROGRESS"],
@@ -61,7 +61,7 @@ export const canDropTask = (
  */
 export const getDragOverStyle = (
   isDraggingOver: boolean,
-  isDraggingWithin: boolean
+  isDraggingWithin: boolean,
 ): string => {
   if (isDraggingOver && isDraggingWithin) {
     return "bg-green-50 dark:bg-green-900 ring-2 ring-green-400";
@@ -77,7 +77,7 @@ export const getDragOverStyle = (
  */
 export const getDragPreviewStyle = (
   isDragging: boolean,
-  isDraggingWithin: boolean
+  isDraggingWithin: boolean,
 ): string => {
   if (isDragging) {
     return isDraggingWithin
@@ -98,7 +98,7 @@ export const formatTaskCount = (count: number): string => {
  * Get status color for visual feedback
  */
 export const getStatusColor = (
-  status: "TODO" | "IN_PROGRESS" | "DONE"
+  status: "TODO" | "IN_PROGRESS" | "DONE",
 ): string => {
   switch (status) {
     case "TODO":
@@ -119,7 +119,7 @@ export const isDragResultValid = (
   sourceId: string,
   destinationId: string | undefined,
   sourceIndex: number,
-  destinationIndex: number | undefined
+  destinationIndex: number | undefined,
 ): boolean => {
   return (
     !!destinationId &&

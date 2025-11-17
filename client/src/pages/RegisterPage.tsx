@@ -40,7 +40,7 @@ export default function RegisterPage() {
       const firebaseUser = await createUserWithEmailAndPassword(
         auth,
         formData.email,
-        formData.password
+        formData.password,
       );
 
       // Step 2: Get ID token from Firebase

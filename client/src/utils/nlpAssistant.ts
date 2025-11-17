@@ -6,7 +6,14 @@ import { Task } from "@services/taskService";
  */
 
 export interface ParsedCommand {
-  action: "create" | "update" | "complete" | "delete" | "list" | "search" | "unknown";
+  action:
+    | "create"
+    | "update"
+    | "complete"
+    | "delete"
+    | "list"
+    | "search"
+    | "unknown";
   taskTitle?: string;
   description?: string;
   priority?: "LOW" | "MEDIUM" | "HIGH";
@@ -37,12 +44,13 @@ const priorityPatterns = {
 // Status keywords
 const statusPatterns = {
   DONE: /\b(done|completed|finished|closed)\b/i,
-  "IN_PROGRESS": /\b(in\s+progress|doing|working|in\s+work|started)\b/i,
+  IN_PROGRESS: /\b(in\s+progress|doing|working|in\s+work|started)\b/i,
   TODO: /\b(todo|to\s+do|pending|not\s+started|upcoming)\b/i,
 };
 
 // Time expressions
-const timeExpressions = /(today|tomorrow|next\s+week|next\s+monday|in\s+\d+\s+(days?|weeks?)|by\s+\d{1,2}\/\d{1,2}|@\s*\d{1,2}\/\d{1,2})/i;
+const timeExpressions =
+  /(today|tomorrow|next\s+week|next\s+monday|in\s+\d+\s+(days?|weeks?)|by\s+\d{1,2}\/\d{1,2}|@\s*\d{1,2}\/\d{1,2})/i;
 
 /**
  * Parse natural language command
@@ -106,7 +114,9 @@ export function parseCommand(input: string): ParsedCommand {
  */
 function extractCreateParams(input: string, result: ParsedCommand) {
   // Remove action prefix
-  let content = input.replace(/^(create|add|new|make)\s+(task|item)?/i, "").trim();
+  let content = input
+    .replace(/^(create|add|new|make)\s+(task|item)?/i, "")
+    .trim();
 
   // Check for pipe-separated description
   const pipeSplit = content.split(/\|/);
@@ -120,7 +130,7 @@ function extractCreateParams(input: string, result: ParsedCommand) {
   } else {
     // Try to extract description with keywords
     const descMatch = content.match(
-      /(?:description|desc|with|details?):\s*(.+?)(?:\s+priority:|$)/i
+      /(?:description|desc|with|details?):\s*(.+?)(?:\s+priority:|$)/i,
     );
     if (descMatch) {
       result.description = descMatch[1].trim();
@@ -145,9 +155,13 @@ function extractTaskReference(input: string, result: ParsedCommand) {
 
   // Remove action prefix
   if (result.action === "complete") {
-    content = input.replace(/^(complete|finish|done|mark.*?done|check|close)\s+/i, "").trim();
+    content = input
+      .replace(/^(complete|finish|done|mark.*?done|check|close)\s+/i, "")
+      .trim();
   } else if (result.action === "delete") {
-    content = input.replace(/^(delete|remove|trash|discard)\s+(task|item)?\s*/i, "").trim();
+    content = input
+      .replace(/^(delete|remove|trash|discard)\s+(task|item)?\s*/i, "")
+      .trim();
   } else if (result.action === "search") {
     content = input.replace(/^(find|search|look\s+for)\s+/i, "").trim();
   }
@@ -170,18 +184,24 @@ function extractTaskReference(input: string, result: ParsedCommand) {
 function extractUpdateParams(input: string, result: ParsedCommand) {
   // Extract task reference
   const titleMatch = input.match(
-    /^update\s+(task\s+)?["\']?([^"\']+?)["\']?\s+(?:to|with|set|as|priority|status|due|description)/i
+    /^update\s+(task\s+)?["\']?([^"\']+?)["\']?\s+(?:to|with|set|as|priority|status|due|description)/i,
   );
   if (titleMatch) {
     result.taskTitle = titleMatch[2].trim();
   }
 
   // Extract what to update
-  const toMatch = input.match(/(?:to|as|:)\s*(.+?)(?:\s+priority|\s+status|\s+due|$)/i);
+  const toMatch = input.match(
+    /(?:to|as|:)\s*(.+?)(?:\s+priority|\s+status|\s+due|$)/i,
+  );
   if (toMatch) {
     // Could be new title, description, or status
     const newValue = toMatch[1].trim();
-    if (statusPatterns.DONE.test(newValue) || statusPatterns["IN_PROGRESS"].test(newValue) || statusPatterns.TODO.test(newValue)) {
+    if (
+      statusPatterns.DONE.test(newValue) ||
+      statusPatterns["IN_PROGRESS"].test(newValue) ||
+      statusPatterns.TODO.test(newValue)
+    ) {
       extractStatus(newValue, result);
     } else {
       result.description = newValue;
@@ -242,7 +262,7 @@ function extractStatus(input: string, result: ParsedCommand) {
  */
 export function findBestMatchingTask(
   query: string,
-  tasks: Task[]
+  tasks: Task[],
 ): Task | undefined {
   if (!query || tasks.length === 0) return undefined;
 
@@ -287,7 +307,9 @@ function calculateSimilarity(a: string, b: string): number {
 
   let matches = 0;
   for (const aWord of aWords) {
-    if (bWords.some((bWord) => bWord.includes(aWord) || aWord.includes(bWord))) {
+    if (
+      bWords.some((bWord) => bWord.includes(aWord) || aWord.includes(bWord))
+    ) {
       matches++;
     }
   }
@@ -298,9 +320,7 @@ function calculateSimilarity(a: string, b: string): number {
 /**
  * Generate helpful suggestions based on parsed command
  */
-export function generateSuggestions(
-  command: ParsedCommand
-): string[] {
+export function generateSuggestions(command: ParsedCommand): string[] {
   const suggestions: string[] = [];
 
   if (command.action === "unknown") {
@@ -308,7 +328,10 @@ export function generateSuggestions(
     suggestions.push("Or: 'complete task [title]'");
     suggestions.push("Or: 'delete task [title]'");
   } else if (command.confidence < 0.7) {
-    if (!command.taskTitle && ["complete", "delete", "search"].includes(command.action)) {
+    if (
+      !command.taskTitle &&
+      ["complete", "delete", "search"].includes(command.action)
+    ) {
       suggestions.push(`Please specify the task title to ${command.action}`);
     }
     if (!command.description && command.action === "create") {
@@ -328,7 +351,8 @@ export function formatCommandSummary(command: ParsedCommand): string {
   switch (command.action) {
     case "create":
       parts.push(`Create task: "${command.taskTitle}"`);
-      if (command.description) parts.push(`Description: ${command.description}`);
+      if (command.description)
+        parts.push(`Description: ${command.description}`);
       if (command.priority) parts.push(`Priority: ${command.priority}`);
       if (command.dueDate) parts.push(`Due: ${command.dueDate}`);
       break;

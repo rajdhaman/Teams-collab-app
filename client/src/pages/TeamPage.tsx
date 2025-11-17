@@ -109,7 +109,7 @@ export default function TeamPage() {
 
   const handleUpdateRole = async (
     memberId: string,
-    newRole: "ADMIN" | "MANAGER" | "MEMBER"
+    newRole: "ADMIN" | "MANAGER" | "MEMBER",
   ) => {
     setActionLoading(memberId);
     try {
@@ -117,7 +117,9 @@ export default function TeamPage() {
       if (response.success) {
         // Update local state
         setMembers(
-          members.map((m) => (m._id === memberId ? { ...m, role: newRole } : m))
+          members.map((m) =>
+            m._id === memberId ? { ...m, role: newRole } : m,
+          ),
         );
         setEditingMemberId(null);
       }
@@ -331,7 +333,7 @@ export default function TeamPage() {
                                 <Badge
                                   variant="outline"
                                   className={`${getRoleBadgeColor(
-                                    member.role
+                                    member.role,
                                   )} px-2 md:px-3 py-1 font-semibold text-xs flex items-center gap-1 flex-shrink-0 md:hidden`}
                                 >
                                   <Shield className="h-3 w-3" />
@@ -351,7 +353,7 @@ export default function TeamPage() {
                                           e.target.value as
                                             | "ADMIN"
                                             | "MANAGER"
-                                            | "MEMBER"
+                                            | "MEMBER",
                                         )
                                       }
                                       className="text-sm px-2 py-1 rounded border border-input bg-background"
@@ -367,7 +369,7 @@ export default function TeamPage() {
                                       onClick={() =>
                                         handleUpdateRole(
                                           member._id,
-                                          selectedRole
+                                          selectedRole,
                                         )
                                       }
                                       disabled={actionLoading === member._id}
@@ -388,7 +390,7 @@ export default function TeamPage() {
                                     <Badge
                                       variant="outline"
                                       className={`${getRoleBadgeColor(
-                                        member.role
+                                        member.role,
                                       )} px-3 py-1 font-semibold text-xs flex items-center gap-1`}
                                     >
                                       <Shield className="h-3 w-3" />
@@ -453,7 +455,7 @@ export default function TeamPage() {
                                           e.target.value as
                                             | "ADMIN"
                                             | "MANAGER"
-                                            | "MEMBER"
+                                            | "MEMBER",
                                         )
                                       }
                                       className="w-full text-sm px-2 py-1 rounded border border-input bg-background"
@@ -471,7 +473,7 @@ export default function TeamPage() {
                                         onClick={() =>
                                           handleUpdateRole(
                                             member._id,
-                                            selectedRole
+                                            selectedRole,
                                           )
                                         }
                                         disabled={actionLoading === member._id}
