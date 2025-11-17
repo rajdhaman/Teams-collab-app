@@ -35,7 +35,7 @@ export function Sidebar() {
       <div className="p-6 border-b bg-gradient-to-r from-blue-50 to-purple-50 dark:from-slate-800 dark:to-slate-700 flex items-center justify-between">
         {desktopSidebarOpen && (
           <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Navigation
+            CollabEdge
           </h2>
         )}
         <button

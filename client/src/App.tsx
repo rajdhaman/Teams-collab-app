@@ -16,6 +16,7 @@ import TasksPage from "@pages/TasksPage";
 import ChatPage from "@pages/ChatPage";
 import TeamPage from "@pages/TeamPage";
 import SettingsPage from "@pages/SettingsPage";
+import LandingPage from "./pages/LandingPage";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -46,6 +47,7 @@ export default function App() {
   return (
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Routes>
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
@@ -103,10 +105,7 @@ export default function App() {
           }
         />
 
-        <Route
-          path="/"
-          element={<Navigate to={user ? "/dashboard" : "/login"} replace />}
-        />
+      
       </Routes>
     </Router>
   );
